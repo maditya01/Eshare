@@ -6,6 +6,8 @@
 import express from "express";
 import auth from "../middleware/auth.js";
 import {
+  getPost,
+  getPostsBySearch,
   createPost,
   getPosts,
   updatePost,
@@ -16,7 +18,9 @@ import {
 const router = express.Router();
 
 //http://localhost:3001/posts/
+router.get("/search/", getPostsBySearch);
 router.get("/", getPosts);
+router.get("/:id", getPost);
 router.post("/", auth, createPost);
 
 //controller me "/:id" ise as a req.parms me Dekha jayega.
