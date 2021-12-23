@@ -3,7 +3,7 @@ import {AUTH} from '../constants/actionType.js'
 
 //if actions are asynchrounous then we have to use
 //redux thunk  function that return async function which has dispatch.
-export const signup = (formData, navigate) => async (dispatch) => {
+export const signup = (formData, navigate, pathname) => async (dispatch) => {
  try {
   //Signup the user
   const {data} = await api.signUp(formData)
@@ -19,7 +19,6 @@ export const signin = (formData, navigate) => async (dispatch) => {
   const {data} = await api.signIn(formData)
 
   dispatch({type: 'AUTH', data})
-
   navigate('/')
  } catch (error) {
   console.log(error)

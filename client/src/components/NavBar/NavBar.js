@@ -5,36 +5,37 @@ import {useDispatch} from 'react-redux'
 import {Link, useNavigate, useLocation} from 'react-router-dom'
 import decode from 'jwt-decode'
 //importing image from image folder
+//I HAVE SOME PROBLME IN THIS FILE
 import memories from '../../images/memories.png'
-
-const NavBar = () => {
+const NavBar = ({text}) => {
  const classes = useStyles()
  const dispatch = useDispatch()
  const navigate = useNavigate()
  const location = useLocation()
+ console.log('printing locatoin')
+ console.log(location)
  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
  const logout = () => {
   dispatch({type: 'LOGOUT'})
-  navigate('/')
   setUser(null)
+  navigate(`/`)
  }
  //When Url changes to '/auth'->'/' then we have to call it
  useEffect(() => {
-  const token = user?.token
-  if (token) {
-   const decodedToken = decode(token)
-   if (decodedToken.exp * 1000 < new Date().getTime()) {
-    logout()
-   }
-  }
+  //   const token = user?.tokent
+  //   if (token) {
+  //    const decodedToken = decode(token)
+  //    if (decodedToken.exp * 1000 < new Date().getTime()) {
+  //     logout()
+  //    }
+  //   }
   setUser(JSON.parse(localStorage.getItem('profile')))
- }, [location, user])
-
+ }, [location])
  return (
   <AppBar className={classes.appBar} position="static" color="inherit">
    <div className={classes.brandContainer}>
-    <Typography component={Link} to="/" className={classes.heading} variant="h3" align="center">
-     Memories
+    <Typography component={Link} to={location.pathname} className={classes.heading} variant="h3" align="center">
+     {text}
     </Typography>
     <img className={classes.image} src={memories} alt="icon" height="60" />
    </div>
@@ -46,7 +47,7 @@ const NavBar = () => {
       <Typography className={classes.userName} varient="h6">
        {user.result.name}
       </Typography>
-      <Button variant="contained" color="primary" onClick={logout}>
+      <Button className={classes.logout} variant="contained" color="primary" onClick={logout}>
        LogOut
       </Button>
      </div>

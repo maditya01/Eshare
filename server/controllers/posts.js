@@ -2,25 +2,56 @@
 //wo route agar database me CRUD operation karna chahti hai to kar sakti hai
 //Now yha se phir frontend me data return karegi. as a response.
 
+//Here we talk to Database
 //Importing PostMessage Model (LIKE A TABLE IN SQL)
 import PostMessage from "../models/postMessage.js";
-
 import express from "express";
 const router = express.Router();
 import mongoose from "mongoose";
 
 export const getPosts = async (req, res) => {
+  const { page } = req.query;
   try {
-    const postMessages = await PostMessage.find();
-    res.status(200).json(postMessages);
+    //We want to show only a Limit of post
+    const LIMIT = 8;
+    //Finding Starting index for every page.
+    const startIndex = (Number(page) - 1) * LIMIT;
+    const total = await PostMessage.countDocuments({});
+    const endIndex = Number(page) * LIMIT - 1;
+    //We want post From startIndex to endIndex
+    const posts = await PostMessage.find()
+      .sort({ _id: -1 })
+      .limit(LIMIT)
+      .skip(startIndex);
+    res.status(200).json({
+      data: posts,
+      currentPage: Number(page),
+      totalNumberofPages: Math.ceil(total / LIMIT),
+    });
   } catch (error) {
     console.log(error);
     res.status(404).json({ message: error.message });
   }
 };
+//QUERY  -> query some data
+//PARAMS -> if we want some specific data
+export const getPostsBySearch = async (req, res) => {
+  const { searchMemories, searchTags } = req.query; //Here we are usign req.query
+  console.log(searchMemories, searchTags);
+  try {
+    const title = new RegExp(searchMemories, "i");
+    //Find all the post that matches either title or tags.
+    const posts = await PostMessage.find({
+      $or: [{ title }, { tags: { $in: searchTags.split(",") } }],
+    });
+    res.json({ data: posts });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
 
 export const getPost = async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.params; //Here we are using req.params
   try {
     const post = await PostMessage.findById(id);
     res.status(200).json(post);
@@ -45,6 +76,7 @@ export const createPost = async (req, res) => {
     res.status(409).json({ message: error.message });
   }
 };
+
 export const updatePost = async (req, res) => {
   const { id: _id } = req.params; //jo ruotes me url bheje ho whi ayega yha par.
   //Now id--->_id ke name se jana jayega.

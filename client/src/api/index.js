@@ -16,7 +16,8 @@ API.interceptors.request.use((req) => {
 //Fetch all the posts From this url.
 //This post where will GO.
 //action ke under posts me jayega.
-export const fetchPosts = () => API.get('/posts')
+export const fetchPosts = (page) => API.get(`/posts?page=${page}`)
+export const fetchPost = (id) => API.get(`/posts/${id}`)
 //Create kar rhe ho Post to axios.post() hoga
 
 //Yhi par Error aa rha tha maine get kiya tha;
@@ -32,3 +33,5 @@ export const likePost = (id) => API.patch(`/posts/${id}/likePost`)
 
 export const signIn = (formData) => API.post('/user/signin', formData)
 export const signUp = (formData) => API.post('/user/signup', formData)
+
+export const fetchPostsBySearch = (searchQuery) => API.get(`/posts/search?searchMemories=${searchQuery.search || 'none'}&searchTags=${searchQuery.tags}`)

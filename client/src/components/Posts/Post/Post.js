@@ -1,9 +1,10 @@
 import React from 'react'
 import useStyles from './styles.js'
 import moment from 'moment'
+import {useNavigate} from 'react-router-dom'
 import {useDispatch} from 'react-redux'
 //Here We have Singular Post Only One post.
-import {Card, CardActions, CardContent, CardMedia, Button, Typography} from '@material-ui/core'
+import {Card, ButtonBase, CardActions, CardContent, CardMedia, Button, Typography} from '@material-ui/core'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import DeleteIcon from '@material-ui/icons/Delete'
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt'
@@ -14,7 +15,7 @@ const Post = ({post, setCurrentId}) => {
  const dispatch = useDispatch()
  //After clicking this Form me jo value thee wo update hona chahiye.
  const user = JSON.parse(localStorage.getItem('profile'))
-
+ const navigate = useNavigate()
  //After Clicking on 3 dots.i have set the current Post ID.
  const moreHoriz = () => {
   setCurrentId(post._id)
@@ -22,8 +23,11 @@ const Post = ({post, setCurrentId}) => {
   // Post->Posts->Home
   //Home->Form(Form Ko Update Karega usme previous Value Fill kar dega)
  }
+ const openPage = () => {
+  navigate(`/memories/${post._id}`)
+ }
  const Likes = () => {
-  if (post.likes.length > 0) {
+  if (post?.likes?.length > 0) {
    //Means you have Like
    return post.likes.find((like) => like === (user?.result?.googleId || user?.result?._id)) ? (
     <>
@@ -46,38 +50,39 @@ const Post = ({post, setCurrentId}) => {
   )
  }
  return (
-  <Card className={classes.card}>
-   <CardMedia className={classes.media} image={post.selectedFile} title={post.title} />
-   <div className={classes.overlay}>
-    <Typography varient="h6">{post.name}</Typography>
-    <Typography varient="body2">{moment(post.createdAt).fromNow()}</Typography>
-   </div>
-   {/* A 3 vertical dot icon */}
-   {(user?.result?._id === post?.creator || user?.result?.googleId === post?.creator) && (
-    <div className={classes.overlay2}>
-     <Button style={{color: 'white'}} size="small" onClick={moreHoriz}>
-      <MoreHorizIcon fontSize="small" />
-     </Button>
+  <Card raised elevation={6} className={classes.card}>
+   <ButtonBase className={classes.cardAction} onClick={openPage}>
+    <CardMedia className={classes.media} image={post.selectedFile} title={post.title} />
+    <div className={classes.overlay}>
+     <Typography varient="h6">{post.name}</Typography>
+     <Typography varient="body2">{moment(post.createdAt).fromNow()}</Typography>
     </div>
-   )}
-   <div className={classes.details}>
-    {/* Tags ak array hai usko output karane ke liye map ka 
+    {/* A 3 vertical dot icon */}
+    {(user?.result?._id === post?.creator || user?.result?.googleId === post?.creator) && (
+     <div className={classes.overlay2}>
+      <Button style={{color: 'white'}} size="small" onClick={moreHoriz}>
+       <MoreHorizIcon fontSize="small" />
+      </Button>
+     </div>
+    )}
+    <div className={classes.details}>
+     {/* Tags ak array hai usko output karane ke liye map ka 
           use karo.
         */}
-    <Typography variant="body2" color="textSecondary">
-     {post.tags.map((tag) => `#${tag}`)}
-    </Typography>
-   </div>
-   <Typography className={classes.title} variant="h5" gutterBottom>
-    {post.title}
-   </Typography>
+     <Typography variant="body2" color="textSecondary">
+      {post.tags.map((tag) => `#${tag}`)}
+     </Typography>
+    </div>
 
-   <CardContent>
-    <Typography variant="body2" color="textSecendory" component="p">
-     {post.message}
+    <Typography className={classes.title} variant="h5" gutterBottom>
+     {post.title}
     </Typography>
-   </CardContent>
-
+    <CardContent>
+     <Typography variant="body2" color="textSecendory" component="p">
+      {post.message}
+     </Typography>
+    </CardContent>
+   </ButtonBase>
    <CardActions className={classes.cardActions}>
     <Button
      size="small"

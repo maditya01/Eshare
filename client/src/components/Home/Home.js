@@ -1,42 +1,25 @@
 import React from 'react'
-import {Container, Grow, Grid} from '@material-ui/core'
-//importing all the posts avialable  into the project
-import Posts from '../Posts/Posts.js'
-// importing form details
-import Form from '../Form/Form.js'
-import {useEffect, useState} from 'react'
-//Due to React Hooks Much Simpler to use Redux.
-import {useDispatch} from 'react-redux'
-//
-import {getPosts} from '../../actions/posts.js'
-
+import Index from './index'
+import memories from '../../images/memories.png'
+import article from '../../images/article.jpg'
+import useStyles from './styles'
+import {Grid} from '@material-ui/core'
 const Home = () => {
- const [currentId, setCurrentId] = useState(null)
- console.log('we are try to find currentId in Home directory')
- console.log(currentId)
- // What does useDispatch
- const dispatch = useDispatch()
-
- //Why useEffect
- useEffect(() => {
-  dispatch(getPosts())
- }, [currentId, dispatch])
-
+ const classes = useStyles()
  return (
-  <Grow in>
-   <Container>
-    {/* xtra small device ke full width 12 small keliey 7 */}
-    <Grid container justify="space-between" alignItems="stretch">
-     <Grid item xs={12} sm={7}>
-      <Posts setCurrentId={setCurrentId} />
-     </Grid>
-     <Grid item xs={12} sm={4}>
-      <Form currentId={currentId} setCurrentId={setCurrentId} />
-     </Grid>
+  <>
+   <Grid container spacing={3} className={classes.grid}>
+    <Grid item>
+     <Index img={memories} text={'Share your best memories with us'} btnText={'Post Your Memories'} path="/memories" />
     </Grid>
-   </Container>
-  </Grow>
+    <Grid item>
+     <Index img={article} text={'Write Your Articles  share some Knowledge with Community'} btnText={'Write Your Article'} path="/articles" />
+    </Grid>
+    <Grid item>
+     <Index img={article} text={'Update With Latest News'} btnText={'See Different News'} path="/news" />
+    </Grid>
+   </Grid>
+  </>
  )
 }
-
 export default Home

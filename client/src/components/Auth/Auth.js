@@ -11,25 +11,30 @@ import {signup, signin} from '../../actions/auth'
 
 const initialState = {firstName: '', lastName: '', email: '', password: '', confirmPassword: ''}
 const Auth = () => {
+ const pathname = window.location.pathname
+ console.log(pathname)
  const classes = useStyles()
  const dispatch = useDispatch()
  const navigate = useNavigate()
  const [showPassword, setShowPassword] = useState(false)
  const [formData, setFormData] = useState(initialState)
  const [isSignup, setIsSignUp] = useState(true)
+
  const handleSubmit = (e) => {
   e.preventDefault()
   console.log(formData)
   if (isSignup) {
-   dispatch(signup(formData, navigate))
+   dispatch(signup(formData, navigate, pathname))
   } else {
-   dispatch(signin(formData, navigate))
+   dispatch(signin(formData, navigate, pathname))
   }
  }
+
  const handleChange = (e) => {
   //This is The important Concept To include current Changing Input Field
   setFormData({...formData, [e.target.name]: e.target.value})
  }
+
  const switchMode = () => setIsSignUp((prevState) => !prevState)
 
  const googleSuccess = async (res) => {
@@ -40,7 +45,7 @@ const Auth = () => {
   try {
    dispatch({type: 'AUTH', data: {result, token}}) //Go to Reducer
    //After dispatch we have to redirect back to home.
-   navigate('/')
+   navigate('/memories')
   } catch (error) {
    console.log(error)
   }

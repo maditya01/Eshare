@@ -4,7 +4,6 @@ import Post from './Post/Post'
 import useStyles from './styles.js'
 import {Grid, CircularProgress} from '@material-ui/core'
 import {useSelector} from 'react-redux'
-import getReducerPosts from '../../reducers/posts.js'
 //In this Page Total Post ayenge All the posts Are Present here
 
 const Posts = ({setCurrentId}) => {
@@ -15,15 +14,18 @@ const Posts = ({setCurrentId}) => {
 
  //Component is updated using useSelector.
 
- const allPost = useSelector((state) => state.getReducerPosts)
+ const {posts, isLoading} = useSelector((state) => state.getReducerPosts)
+    if (!posts?.length && !isLoading) {
+  return 'No posts'
+ }
  return (
   <>
-   {!allPost.length ? (
+   {isLoading ? (
     <CircularProgress />
    ) : (
     <Grid className={classes.container} container alignItem="stretch" spacing={3}>
-     {allPost.map((post) => (
-      <Grid key={post._id} item xs={12} sm={6}>
+     {posts.map((post) => (
+      <Grid key={post._id} item xs={12} sm={12} md={6} lg={3}>
        <Post post={post} setCurrentId={setCurrentId} />
       </Grid>
      ))}
