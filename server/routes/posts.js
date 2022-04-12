@@ -6,6 +6,7 @@
 import express from "express";
 import auth from "../middleware/auth.js";
 import {
+  commentPosts,
   getPost,
   getPostsBySearch,
   createPost,
@@ -31,5 +32,6 @@ router.patch("/:id", auth, updatePost);
 router.delete("/:id", auth, deletePost);
 
 router.patch("/:id/likePost", auth, likePost);
+router.post("/:id/commentPost", auth, commentPosts);
 
 export default router;

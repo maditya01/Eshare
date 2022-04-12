@@ -1,11 +1,12 @@
 import * as api from '../api/index.js' //We are importing everything from api folder as api.
 import {FETCH_POST, FETCH_BY_SEARCH, START_LOADING, END_LOADING, FETCH_ALL, UPDATE, DELETE, CREATE, LIKE} from '../constants/actionType.js'
 //Action creators that returns actions.
-
+// console.log('actions->posts.js File')
 export const getPosts = (page) => async (dispatch) => {
  try {
   dispatch({type: START_LOADING})
   //Getting data  from our backend
+  // console.log(page)
   const {data} = await api.fetchPosts(page)
   //we pass that data in to dispatch and also we tell type.
   dispatch({type: FETCH_ALL, payload: data})
@@ -60,7 +61,6 @@ export const creationPost = (post) => async (dispatch) => {
  console.log(post)
  try {
   const {data} = await api.createPost(post)
-  console.log('Kya Return Hua')
   dispatch({type: CREATE, payload: data})
  } catch (error) {
   console.log(error)
@@ -77,7 +77,9 @@ export const updatePost = (id, post) => async (dispatch) => {
   console.log(error.message)
  }
 }
-
+export const fun = (some1, some2) => (someData) => {
+    
+}
 export const deletePost = (id) => async (dispatch) => {
  try {
   //No need to return some response i want to delete.
@@ -92,6 +94,18 @@ export const likePost = (id) => async (dispatch) => {
  try {
   const {data} = await api.likePost(id)
   dispatch({type: LIKE, payload: data})
+ } catch (error) {
+  console.log(error)
+ }
+}
+
+export const commentPosts = (finalComment, id) => async (dispatch) => {
+ try {
+  const {data} = await api.commentPosts(finalComment, id)
+  console.log('inside CommentPost api.commentPosts')
+  console.log(data)
+  dispatch({type: 'COMMENT', payload: data})
+  return data.comments
  } catch (error) {
   console.log(error)
  }

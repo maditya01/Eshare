@@ -3,7 +3,7 @@ import useStyles from './styles.js'
 import moment from 'moment'
 import {useNavigate} from 'react-router-dom'
 import {useDispatch} from 'react-redux'
-//Here We have Singular Post Only One post.
+//Here We have Single Post Only One post.
 import {Card, ButtonBase, CardActions, CardContent, CardMedia, Button, Typography} from '@material-ui/core'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import DeleteIcon from '@material-ui/icons/Delete'
@@ -16,6 +16,7 @@ const Post = ({post, setCurrentId}) => {
  //After clicking this Form me jo value thee wo update hona chahiye.
  const user = JSON.parse(localStorage.getItem('profile'))
  const navigate = useNavigate()
+
  //After Clicking on 3 dots.i have set the current Post ID.
  const moreHoriz = () => {
   setCurrentId(post._id)
@@ -23,9 +24,13 @@ const Post = ({post, setCurrentId}) => {
   // Post->Posts->Home
   //Home->Form(Form Ko Update Karega usme previous Value Fill kar dega)
  }
+
+ //After clicking on a single Post
  const openPage = () => {
   navigate(`/memories/${post._id}`)
  }
+
+ //After Clicking on Like Button,Logic Behind Like Button
  const Likes = () => {
   if (post?.likes?.length > 0) {
    //Means you have Like
@@ -49,6 +54,7 @@ const Post = ({post, setCurrentId}) => {
    </>
   )
  }
+
  return (
   <Card raised elevation={6} className={classes.card}>
    <ButtonBase className={classes.cardAction} onClick={openPage}>
@@ -57,11 +63,11 @@ const Post = ({post, setCurrentId}) => {
      <Typography varient="h6">{post.name}</Typography>
      <Typography varient="body2">{moment(post.createdAt).fromNow()}</Typography>
     </div>
-    {/* A 3 vertical dot icon */}
+    {/* A 3 vertical dot icon Logic For updating the Post you should have the creator of the post */}
     {(user?.result?._id === post?.creator || user?.result?.googleId === post?.creator) && (
      <div className={classes.overlay2}>
       <Button style={{color: 'white'}} size="small" onClick={moreHoriz}>
-       <MoreHorizIcon fontSize="small" />
+       <MoreHorizIcon fontSize= "small" />
       </Button>
      </div>
     )}
@@ -84,6 +90,7 @@ const Post = ({post, setCurrentId}) => {
     </CardContent>
    </ButtonBase>
    <CardActions className={classes.cardActions}>
+    {/* Like Button  */}
     <Button
      size="small"
      color="primary"
@@ -94,6 +101,8 @@ const Post = ({post, setCurrentId}) => {
     >
      <Likes />
     </Button>
+
+    {/* For Deleting a Post you should the creator of that post otherwise you will not see delete button*/}
     {(user?.result?._id === post?.creator || user?.result?.googleId === post?.creator) && (
      <Button
       size="small"

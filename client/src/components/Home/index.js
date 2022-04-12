@@ -11,21 +11,17 @@ import useStyles from './styles.js'
 const Index = ({img, text, btnText, path}) => {
  const classes = useStyles()
  return (
-  <Grid container classes={classes.grid}>
-   <Grid item>
-    <Card className={classes.card}>
-     <CardMedia className={classes.media} image={img} />
-     <CardContent className={classes.details}>
-      <Typography>{text}</Typography>
-     </CardContent>
-     <CardActions classes={classes.cardActions}>
-      <Button variant="contained" color="success" component={Link} to={path} size="medium">
-       {btnText}
-      </Button>
-     </CardActions>
-    </Card>
-   </Grid>
-  </Grid>
+  <Card className={classes.card}>
+   <CardMedia className={classes.media} image={img} />
+   <CardContent className={classes.details}>
+    <Typography>{text}</Typography>
+   </CardContent>
+   <CardActions classes={classes.cardActions}>
+    <Button variant="contained" color="success" component={Link} to={path} size="medium">
+     {btnText}
+    </Button>
+   </CardActions>
+  </Card>
  )
 }
 export default Index

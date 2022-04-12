@@ -4,22 +4,30 @@ import {Typography, CircularProgress, Paper, Divider} from '@material-ui/core'
 import {useSelector, useDispatch} from 'react-redux'
 import {getPost, getPostsBySearch} from '../../actions/posts'
 import useStyles from './styles'
+import CommentSection from './CommentSection'
 import moment from 'moment'
+
+// After Clicking on a particular Memory
+
 const MemoryDetails = () => {
+ //we are getting single post which we have Click
  const {post, posts, isLoading} = useSelector((state) => state.getReducerPosts)
  const classes = useStyles()
  const navigate = useNavigate()
  const dispatch = useDispatch()
  const {id} = useParams()
+
  useEffect(() => {
   dispatch(getPost(id))
   // eslint-disable-next-line react-hooks/exhaustive-deps
  }, [id])
+
  useEffect(() => {
   if (post) {
    dispatch(getPostsBySearch({search: 'none', tags: post?.tags.join(',')}))
   }
  }, [post])
+
  if (!post) return null
  if (isLoading) {
   return (
@@ -28,9 +36,14 @@ const MemoryDetails = () => {
    </Paper>
   )
  }
+
  const openPost = (_id) => {
   navigate(`/memories/${_id}`)
  }
+
+ //Recommended Post bhee Clickable honge unko Click karne par jo bhee post
+ //ke id hogi us URL par jayega
+
  const recommendedPosts = posts.filter(({_id}) => _id !== post._id)
  return (
   <Paper style={{padding: '20px', borderRadius: '15px'}} elevation={6}>
@@ -53,7 +66,8 @@ const MemoryDetails = () => {
      </Typography>
      <Divider style={{margin: '20px 0'}} />
      <Typography variant="body1">
-      <strong>Comments - coming soon!</strong>
+      {/* COMMENT SECTION IS HERE WE ARE WORKING HERE */}
+      <CommentSection post={post} />
      </Typography>
      <Divider style={{margin: '20px 0'}} />
     </div>

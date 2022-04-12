@@ -9,32 +9,36 @@ import decode from 'jwt-decode'
 import memories from '../../images/memories.png'
 const NavBar = ({text}) => {
  const classes = useStyles()
+
  const dispatch = useDispatch()
+
  const navigate = useNavigate()
+
  const location = useLocation()
- console.log('printing locatoin')
  console.log(location)
  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
+
  const logout = () => {
   dispatch({type: 'LOGOUT'})
   setUser(null)
   navigate(`/`)
  }
+
  //When Url changes to '/auth'->'/' then we have to call it
  useEffect(() => {
-  //   const token = user?.tokent
-  //   if (token) {
-  //    const decodedToken = decode(token)
-  //    if (decodedToken.exp * 1000 < new Date().getTime()) {
-  //     logout()
-  //    }
-  //   }
+  const token = user?.token
+  if (token) {
+   const decodedToken = decode(token)
+   if (decodedToken.exp * 1000 < new Date().getTime()) {
+    logout()
+   }
+  }
   setUser(JSON.parse(localStorage.getItem('profile')))
  }, [location])
  return (
   <AppBar className={classes.appBar} position="static" color="inherit">
    <div className={classes.brandContainer}>
-    <Typography component={Link} to={location.pathname} className={classes.heading} variant="h3" align="center">
+    <Typography component={Link} to="/memories" className={classes.heading} variant="h3" align="center">
      {text}
     </Typography>
     <img className={classes.image} src={memories} alt="icon" height="60" />

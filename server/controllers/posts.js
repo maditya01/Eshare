@@ -37,7 +37,7 @@ export const getPosts = async (req, res) => {
 //PARAMS -> if we want some specific data
 export const getPostsBySearch = async (req, res) => {
   const { searchMemories, searchTags } = req.query; //Here we are usign req.query
-  console.log(searchMemories, searchTags);
+  // console.log(searchMemories, searchTags);
   try {
     const title = new RegExp(searchMemories, "i");
     //Find all the post that matches either title or tags.
@@ -116,4 +116,15 @@ export const likePost = async (req, res) => {
     new: true,
   });
   res.json(updatedPost);
+};
+
+export const commentPosts = async (req, res) => {
+  const { id } = req.params;
+  const { finalComment } = req.body;
+  const post = await PostMessage.findById(id); //object return hoga
+  post.comments.push(finalComment);
+  const updatePost = await PostMessage.findByIdAndUpdate(id, post, {
+    new: true,
+  });
+  res.json(updatePost);
 };

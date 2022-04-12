@@ -5,7 +5,7 @@ import useStyles from './styles.js'
 import {Grid, CircularProgress} from '@material-ui/core'
 import {useSelector} from 'react-redux'
 //In this Page Total Post ayenge All the posts Are Present here
-
+// console.log('component->posts->posts.js File')
 const Posts = ({setCurrentId}) => {
  const classes = useStyles()
 
@@ -14,8 +14,10 @@ const Posts = ({setCurrentId}) => {
 
  //Component is updated using useSelector.
 
+ //Here in posts we are getting all the posts present in website
  const {posts, isLoading} = useSelector((state) => state.getReducerPosts)
-    if (!posts?.length && !isLoading) {
+
+ if (!posts?.length && !isLoading) {
   return 'No posts'
  }
  return (

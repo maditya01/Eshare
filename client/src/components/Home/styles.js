@@ -25,7 +25,6 @@ export default makeStyles({
   flexDirection: 'column',
   justifyContent: 'space-between',
   borderRadius: '15px',
-  height: '100%',
   minWidth: '40px',
   maxWidth: '260px',
   '&:hover': {
@@ -46,21 +45,23 @@ export default makeStyles({
   right: '20px',
   color: 'white',
  },
+
  grid: {
-  display: 'flex',
-  flexDirection: 'row',
+     display: 'flex',
+     flexDirection: 'column',
+  justifyContent: 'space-between',
  },
  details: {
   display: 'flex',
   justifyContent: 'space-between',
-  margin: '20px',
+  //   margin: '20px',
  },
  title: {
   padding: '0 16px',
  },
  cardActions: {
   padding: '0 16px 8px 16px',
-  display: 'flex',
+  //   display: 'flex',
   justifyContent: 'space-between',
  },
 })

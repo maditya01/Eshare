@@ -4,7 +4,7 @@
 //Action Type ke according Kaam Hoga Switch Statement Use kar LO.
 //In Reducers You have always State you can not return empty State.
 //set The initial Value.
-import {FETCH_POST, START_LOADING, END_LOADING, FETCH_BY_SEARCH, FETCH_ALL, UPDATE, DELETE, CREATE, LIKE} from '../constants/actionType.js'
+import {COMMENT, FETCH_POST, START_LOADING, END_LOADING, FETCH_BY_SEARCH, FETCH_ALL, UPDATE, DELETE, CREATE, LIKE} from '../constants/actionType.js'
 
 //YOU KNOW THE CYCLE after action we comes into reducer here we have previous state and action.
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -38,6 +38,8 @@ const getReducerPosts = (state = {isLoading: true, posts: []}, action) => {
   case DELETE:
    return {...state, posts: state.posts.filter((post) => post._id !== action.payload)}
   case UPDATE:
+   return {...state, posts: state.posts.map((post) => (post._id === action.payload._id ? action.payload : post))}
+  case COMMENT:
    return {...state, posts: state.posts.map((post) => (post._id === action.payload._id ? action.payload : post))}
   case LIKE:
    return {...state, posts: state.posts.map((post) => (post._id === action.payload._id ? action.payload : post))}
