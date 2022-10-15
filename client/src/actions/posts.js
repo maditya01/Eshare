@@ -77,9 +77,7 @@ export const updatePost = (id, post) => async (dispatch) => {
   console.log(error.message)
  }
 }
-export const fun = (some1, some2) => (someData) => {
-    
-}
+
 export const deletePost = (id) => async (dispatch) => {
  try {
   //No need to return some response i want to delete.
@@ -95,7 +93,7 @@ export const likePost = (id) => async (dispatch) => {
   const {data} = await api.likePost(id)
   dispatch({type: LIKE, payload: data})
  } catch (error) {
-  console.log(error)
+  console.log(` Aditya is Error Comming ${error}`)
  }
 }
 

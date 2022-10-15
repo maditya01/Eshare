@@ -1,5 +1,7 @@
 import axios from 'axios'
 
+//For Deploying on Heroku.->
+//Use the heroku api.
 const API = axios.create({baseURL: 'http://localhost:3001'})
 
 //Sari Request karne se pahle req me header add kar do with some token
@@ -34,8 +36,8 @@ export const deletePost = (id) => API.delete(`/posts/${id}`)
 //Given Url  par backend me request karega server se
 export const likePost = (id) => API.patch(`/posts/${id}/likePost`)
 
-export const signIn = (formData) => API.post('/user/signin', formData)
 export const signUp = (formData) => API.post('/user/signup', formData)
+export const signIn = (formData) => API.post('/user/signin', formData)
 
 export const fetchPostsBySearch = (searchQuery) => API.get(`/posts/search?searchMemories=${searchQuery.search || 'none'}&searchTags=${searchQuery.tags}`)
 

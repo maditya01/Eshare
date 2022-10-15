@@ -1,4 +1,4 @@
-import bcrypt from "bcryptjs"; //For Decrypt password
+import bcrypt from "bcryptjs"; //For encrypting and Decrypt password
 import jwt from "jsonwebtoken"; //For
 import User from "../models/user.js";
 
@@ -31,6 +31,8 @@ export const signin = async (req, res) => {
   //What we have to DO when we hit this url
   //http://localhost:3001/user/signup
 };
+
+
 export const signup = async (req, res) => {
   //http://localhost:3001/user/signup
   // What we have to do when we hit this url

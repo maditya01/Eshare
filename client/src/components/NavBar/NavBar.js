@@ -1,9 +1,8 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import useStyles from './styles'
 import {AppBar, Avatar, Button, Toolbar, Typography} from '@material-ui/core'
 import {useDispatch} from 'react-redux'
-import {Link, useNavigate, useLocation} from 'react-router-dom'
-import decode from 'jwt-decode'
+import {Link, useNavigate} from 'react-router-dom'
 //importing image from image folder
 //I HAVE SOME PROBLME IN THIS FILE
 import memories from '../../images/memories.png'
@@ -14,8 +13,8 @@ const NavBar = ({text}) => {
 
  const navigate = useNavigate()
 
- const location = useLocation()
- console.log(location)
+ //  const location = useLocation()
+ //  console.log(location)
  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
 
  const logout = () => {
@@ -24,17 +23,17 @@ const NavBar = ({text}) => {
   navigate(`/`)
  }
 
- //When Url changes to '/auth'->'/' then we have to call it
- useEffect(() => {
-  const token = user?.token
-  if (token) {
-   const decodedToken = decode(token)
-   if (decodedToken.exp * 1000 < new Date().getTime()) {
-    logout()
-   }
-  }
-  setUser(JSON.parse(localStorage.getItem('profile')))
- }, [location])
+ //  //When Url changes to '/auth'->'/' then we have to call it
+ //  useEffect(() => {
+ //   const token = user?.token
+ //   if (token) {
+ //    const decodedToken = decode(token)
+ //    if (decodedToken.exp * 1000 < new Date().getTime()) {
+ //     logout()
+ //    }
+ //   }
+ //   setUser(JSON.parse(localStorage.getItem('profile')))
+ //  }, [])
  return (
   <AppBar className={classes.appBar} position="static" color="inherit">
    <div className={classes.brandContainer}>

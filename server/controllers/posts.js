@@ -90,6 +90,7 @@ export const updatePost = async (req, res) => {
 
 export const deletePost = async (req, res) => {
   const { id: _id } = req.params;
+  // console.log(_id);
   if (!mongoose.Types.ObjectId.isValid(_id))
     return res.status(404).send(`No post with id: ${_id}`);
 
@@ -98,13 +99,18 @@ export const deletePost = async (req, res) => {
 };
 
 export const likePost = async (req, res) => {
+  //id is the specific id of a post
   const { id: _id } = req.params;
+  // console.log(`aditya id is this${req.userId}`);
+  //we have added this userId in Auth Middleware folder.
   if (!req.userId) return res.json({ message: "Unauthenticated" });
 
   if (!mongoose.Types.ObjectId.isValid(_id))
     return res.status(404).send(`No post with id: ${_id}`);
   const post = await PostMessage.findById(_id);
+  // console.log(post);
   const index = post.likes.findIndex((id) => id === String(req.userId));
+  console.log(`${index} is this you know`);
   if (index === -1) {
     //Like the Post
     post.likes.push(req.userId);

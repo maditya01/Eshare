@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const postSchema = mongoose.Schema({
-  // Declare  all The Attribute
+  // Declare  all The Attributes
   title: String,
   message: String,
   name: String,

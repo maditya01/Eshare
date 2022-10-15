@@ -8,7 +8,7 @@ export const signup = (formData, navigate, pathname) => async (dispatch) => {
   //Signup the user
   const {data} = await api.signUp(formData)
   dispatch({type: AUTH, data})
-  navigate('/')
+  navigate('/memories')
  } catch (error) {
   console.log(error.message)
  }
@@ -17,9 +17,10 @@ export const signin = (formData, navigate) => async (dispatch) => {
  try {
   //login the user
   const {data} = await api.signIn(formData)
-
+//   var action = {type: 'AUTH', data}
+//   console.log(action)
   dispatch({type: 'AUTH', data})
-  navigate('/')
+  navigate('/memories')
  } catch (error) {
   console.log(error)
  }

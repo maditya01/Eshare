@@ -12,7 +12,7 @@ import {signup, signin} from '../../actions/auth'
 const initialState = {firstName: '', lastName: '', email: '', password: '', confirmPassword: ''}
 const Auth = () => {
  const pathname = window.location.pathname
- console.log(pathname)
+ //  console.log(pathname)
  const classes = useStyles()
  const dispatch = useDispatch()
  const navigate = useNavigate()
@@ -20,16 +20,22 @@ const Auth = () => {
  const [formData, setFormData] = useState(initialState)
  const [isSignup, setIsSignUp] = useState(true)
 
+    
  const handleSubmit = (e) => {
   e.preventDefault()
-  console.log(formData)
+  //   console.log(formData)
   if (isSignup) {
-   dispatch(signup(formData, navigate, pathname))
+   var obj = signup(formData, navigate, pathname)
+   console.log('IsSignUp')
+   //    console.log(obj)
+   dispatch(obj)
   } else {
+   console.log('IsSignIn')
    dispatch(signin(formData, navigate, pathname))
   }
  }
 
+    
  const handleChange = (e) => {
   //This is The important Concept To include current Changing Input Field
   setFormData({...formData, [e.target.name]: e.target.value})
@@ -37,6 +43,7 @@ const Auth = () => {
 
  const switchMode = () => setIsSignUp((prevState) => !prevState)
 
+ //google auth Code.
  const googleSuccess = async (res) => {
   //What are the different properties we get after google Succes.
   // console.log(res);
@@ -55,7 +62,9 @@ const Auth = () => {
   console.log(error)
   console.log('Google sign in failure this is  not working')
  }
+
  const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword)
+
  return (
   <>
    <Container component="main" maxWidth="xs">
@@ -65,6 +74,7 @@ const Auth = () => {
       <LockOutlinedIcon />
      </Avatar>
      <Typography varient="h5">{isSignup ? 'SignUp' : 'SignIn'}</Typography>
+
      <form className={classes.form} onSubmit={handleSubmit}>
       <Grid container spacing={2}>
        {isSignup && (
@@ -77,9 +87,13 @@ const Auth = () => {
        <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
        {isSignup && <Input name="confirmPassword" label="Confirm Password" handleChange={handleChange} type="password" handleShowPassword={handleShowPassword} />}
       </Grid>
+
+      {/* Normal Email Password Login Method */}
       <Button type="submit" variant="contained" fullWidth color="primary" className={classes.submit}>
        {isSignup ? 'SignUp' : 'SignIn'}
       </Button>
+
+      {/* Google Login Component Code  */}
       <GoogleLogin
        clientId="484186901299-a34oi29mnr2b5sbq0obnq4e82i7rnvsg.apps.googleusercontent.com"
        render={(renderProps) => (
@@ -91,12 +105,14 @@ const Auth = () => {
        onFailure={googleFailure}
        cookiePolicy={'single_host_origin'}
       />
+
       <Grid container justify="flex-end">
        <Grid item>
         <Button onClick={switchMode}>{isSignup ? 'Already have an Account? SignIn' : "Don't Have an Account? SignUp"}</Button>
        </Grid>
       </Grid>
      </form>
+     {/* Ending of Form */}
     </Paper>
    </Container>
   </>

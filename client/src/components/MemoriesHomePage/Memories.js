@@ -89,9 +89,8 @@ const Memories = () => {
      {/* xtra small device ke full width 12 small keliey 7 */}
      <Grid container spacing={3} className={classes.gridContainer} justify="space-between" alignItems="stretch">
       {/* Grid Item-1*/}
-
       <Grid item xs={12} sm={6} md={9}>
-       {/* Section-2 */}
+       {/* Section-2 Putting All the Posts on Screen */}
        <Posts setCurrentId={setCurrentId} />
       </Grid>
 

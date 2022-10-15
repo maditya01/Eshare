@@ -9,7 +9,7 @@ import './index.css'
 ReactDom.render(
  //Now our App Component Comes under the Provider Component
  //What is the Need of Provider??
-  
+
  <Provider store={store}>
   <App />,
  </Provider>,

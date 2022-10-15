@@ -3,6 +3,8 @@
 //Route ke milne par chalega.
 //Do route ka SAME HTTP REQUEST,ROUTE NHI HO SAKTA HAI.
 
+
+
 import express from "express";
 import auth from "../middleware/auth.js";
 import {
@@ -30,8 +32,8 @@ router.patch("/:id", auth, updatePost);
 //For Deleting a single Post we are looking
 //A single Post is identified using their ID.
 router.delete("/:id", auth, deletePost);
+router.post("/:id/commentPost", auth, commentPosts);
 
 router.patch("/:id/likePost", auth, likePost);
-router.post("/:id/commentPost", auth, commentPosts);
 
 export default router;

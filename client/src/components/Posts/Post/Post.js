@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import useStyles from './styles.js'
 import moment from 'moment'
 import {useNavigate} from 'react-router-dom'
@@ -10,13 +10,20 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt'
 import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined'
 import {deletePost, likePost} from '../../../actions/posts.js'
+
+//Singula Post is Comming.
 const Post = ({post, setCurrentId}) => {
  const classes = useStyles()
  const dispatch = useDispatch()
+ const [likes, setLikes] = useState(post?.likes)
  //After clicking this Form me jo value thee wo update hona chahiye.
+
+ //Getting User From Local Storage.
  const user = JSON.parse(localStorage.getItem('profile'))
+
  const navigate = useNavigate()
 
+ const userId = user?.result?.googleId || user?.result?._id
  //After Clicking on 3 dots.i have set the current Post ID.
  const moreHoriz = () => {
   setCurrentId(post._id)
@@ -29,24 +36,29 @@ const Post = ({post, setCurrentId}) => {
  const openPage = () => {
   navigate(`/memories/${post._id}`)
  }
-
+ const handleLike = async () => {
+  dispatch(likePost(post._id))
+  if (post.likes.find((like_id) => like_id === userId)) {
+   setLikes(post.likes.filter((id) => id !== userId))
+  } else {
+   setLikes([...post.likes, userId])
+  }
+ }
  //After Clicking on Like Button,Logic Behind Like Button
  const Likes = () => {
-  if (post?.likes?.length > 0) {
+  if (likes.length > 0) {
    //Means you have Like
-   return post.likes.find((like) => like === (user?.result?.googleId || user?.result?._id)) ? (
+   return likes.find((like_id) => like_id === userId) ? (
     <>
-     <ThumbUpAltIcon fontSize="small" />
-     &nbsp;{post.likes.length > 2 ? `You and ${post.likes.length - 1} others` : `${post.likes.length} like${post.likes.length > 1 ? 's' : ''}`}
+     <ThumbUpAltIcon fontSize="small" /> &nbsp;{likes.length > 2 ? `You and ${likes.length - 1} others` : `${likes.length} like${likes.length > 1 ? 's' : ''}`}
     </>
    ) : (
     <>
      <ThumbUpAltOutlinedIcon fontSize="small" />
-     &nbsp;{post.likes.length} {post.likes.length === 1 ? 'Like' : 'Likes'}
+     &nbsp;{likes.length} {likes.length === 1 ? 'Like' : 'Likes'}
     </>
    )
   }
-
   return (
    <>
     <ThumbUpAltOutlinedIcon fontSize="small" />
@@ -64,10 +76,10 @@ const Post = ({post, setCurrentId}) => {
      <Typography varient="body2">{moment(post.createdAt).fromNow()}</Typography>
     </div>
     {/* A 3 vertical dot icon Logic For updating the Post you should have the creator of the post */}
-    {(user?.result?._id === post?.creator || user?.result?.googleId === post?.creator) && (
+    {(userId === post?.creator || userId === post?.creator) && (
      <div className={classes.overlay2}>
       <Button style={{color: 'white'}} size="small" onClick={moreHoriz}>
-       <MoreHorizIcon fontSize= "small" />
+       <MoreHorizIcon fontSize="small" />
       </Button>
      </div>
     )}
@@ -91,19 +103,12 @@ const Post = ({post, setCurrentId}) => {
    </ButtonBase>
    <CardActions className={classes.cardActions}>
     {/* Like Button  */}
-    <Button
-     size="small"
-     color="primary"
-     disabled={!user?.result}
-     onClick={() => {
-      dispatch(likePost(post._id))
-     }}
-    >
+    <Button size="small" color="primary" disabled={!user?.result} onClick={handleLike}>
      <Likes />
     </Button>
 
     {/* For Deleting a Post you should the creator of that post otherwise you will not see delete button*/}
-    {(user?.result?._id === post?.creator || user?.result?.googleId === post?.creator) && (
+    {(userId === post?.creator || userId === post?.creator) && (
      <Button
       size="small"
       color="primary"
