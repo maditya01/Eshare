@@ -6,17 +6,25 @@ import {commentPosts} from '../../actions/posts'
 const CommentSection = ({post}) => {
  const classes = useStyles()
  const user = JSON.parse(localStorage.getItem('profile'))
- console.log('inside CommentSection')
- console.log(post?.comments)
+ //  console.log('inside CommentSection')
+ //  console.log(post?.comments)
  const [comments, setComments] = useState(post?.comments)
  const [comment, setComment] = useState('')
  const dispatch = useDispatch()
-
+ function onTextChange(e) {
+  setComment(e.target.value)
+  setComments({...comments, comment})
+ }
  const handleComments = () => {
+  if (comment.length < 1) {
+   alert('Enter Comment')
+   return
+  }
   //i have to dispatch Comments
   const finalComment = `${user.result.name}: ${comment}`
-  console.log(finalComment)
+  //   console.log(finalComment)
   dispatch(commentPosts(finalComment, post._id))
+  setComment('')
  }
  return (
   <div className={classes.commentsOuterContainer}>
@@ -25,18 +33,18 @@ const CommentSection = ({post}) => {
      Comments
     </Typography>
     {comments.map((c, i) => (
-     <Typography key={i} gutterBottom variant="subtitle1">
+     <Typography style={{background: 'pink'}} key={i} gutterBottom variant="subtitle1">
       {c}
      </Typography>
     ))}
    </div>
    {user?.result.name && (
     <div style={{width: '50%'}}>
-     <Typography gutterBottom variant="h6">
+     <Typography style={{background: 'red'}} gutterBottom variant="h6">
       Write a Comment
      </Typography>
-     <TextField value={comment} onChange={(e) => setComment(e.target.value)} fullWidth rows={4} variant="outlined" label="Comment" multiline />
-     <Button variant="contained" color="primary" sytle={{marginTop: '15px'}} disabled={!comments} onClick={handleComments}>
+     <TextField fullWidth maxRows="5" required value={comment} onChange={onTextChange} variant="outlined" label="Comment" multiline />
+     <Button variant="contained" color="primary" style={{marginTop: '15px'}} disabled={!comments} onClick={handleComments}>
       Comment
      </Button>
     </div>

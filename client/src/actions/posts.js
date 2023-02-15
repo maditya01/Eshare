@@ -100,8 +100,8 @@ export const likePost = (id) => async (dispatch) => {
 export const commentPosts = (finalComment, id) => async (dispatch) => {
  try {
   const {data} = await api.commentPosts(finalComment, id)
-  console.log('inside CommentPost api.commentPosts')
-  console.log(data)
+//   console.log('inside CommentPost api.commentPosts')
+//   console.log(data)
   dispatch({type: 'COMMENT', payload: data})
   return data.comments
  } catch (error) {

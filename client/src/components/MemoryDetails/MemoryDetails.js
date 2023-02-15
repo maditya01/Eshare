@@ -46,38 +46,43 @@ const MemoryDetails = () => {
 
  const recommendedPosts = posts.filter(({_id}) => _id !== post._id)
  return (
-  <Paper style={{padding: '20px', borderRadius: '15px'}} elevation={6}>
+  <Paper style={{width: '100%', height: '100%', padding: '15px', borderRadius: '10px'}} elevation={3}>
    <div className={classes.card}>
     <div className={classes.section}>
-     <Typography variant="h3" component="h2">
+     <Typography style={{background: 'salmon', textAlign: 'center', padding: '5px'}} variant="h3" component="h2">
       {post.title}
      </Typography>
-     <Typography gutterBottom variant="h6" color="textSecondary" component="h2">
+     <Typography style={{background: 'grey'}} gutterBottom variant="h5" component="h2">
       {post.tags.map((tag) => `#${tag} `)}
      </Typography>
-     <Typography gutterBottom variant="body1" component="p">
+     <Typography style={{background: 'yellow', padding: '20px'}} gutterBottom variant="body1" component="p">
       {post.message}
      </Typography>
-     <Typography variant="h6">Created by: {post.name}</Typography>
-     <Typography variant="body1">{moment(post.createdAt).fromNow()}</Typography>
-     <Divider style={{margin: '20px 0'}} />
+     <Typography style={{background: 'red', marginTop: '20px'}} variant="h6">
+      Created by: {post.name}
+     </Typography>
+     <Typography style={{background: 'green'}} variant="body1">
+      {moment(post.createdAt).fromNow()}
+     </Typography>
+     {/* <Divider style={{margin: '20px 0'}} />
      <Typography variant="body1">
       <strong>Realtime Chat - coming soon!</strong>
      </Typography>
-     <Divider style={{margin: '20px 0'}} />
-     <Typography variant="body1">
+     <Divider style={{margin: '20px 0'}} /> */}
+     <Typography style={{margin: '20px', padding: '10px', background: 'green'}} variant="body1">
       {/* COMMENT SECTION IS HERE WE ARE WORKING HERE */}
       <CommentSection post={post} />
      </Typography>
      <Divider style={{margin: '20px 0'}} />
     </div>
+    {/* IMAGE SECTION OF PARTICULAR POST */}
     <div className={classes.imageSection}>
      <img className={classes.media} src={post.selectedFile || 'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'} alt={post.title} />
     </div>
    </div>
    {recommendedPosts.length && (
     <div className={classes.section}>
-     <Typography guterBottom variant="h5">
+     <Typography gutterBottom variant="h5">
       You might also Like
      </Typography>
      <Divider />
