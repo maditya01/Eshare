@@ -20,7 +20,7 @@ import FileBase from 'react-file-base64'
 
 const Form = ({currentId, setCurrentId}) => {
  const navigate = useNavigate()
-
+ //  console.log(tpost)
  const [postData, setPostData] = useState({
   title: '',
   message: '',
@@ -51,14 +51,17 @@ const Form = ({currentId, setCurrentId}) => {
   })
  }
 
+ //some problem in handling
+ // before reload when we submit post will be seen
  const submitHandler = (e) => {
   e.preventDefault()
+  //   console.log(postData)
   if (currentId === null) {
    dispatch(creationPost({...postData, name: user?.result?.name}))
    navigate('/memories')
   } else {
    const res = updatePost(currentId, {...postData, name: user?.result?.name})
-   console.log(res)
+   //    console.log(res)
    dispatch(res)
   }
   clear()

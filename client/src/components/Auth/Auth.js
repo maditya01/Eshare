@@ -56,7 +56,7 @@ const Auth = () => {
   } catch (error) {
    console.log(error)
   }
-  console.log(res)
+  //   console.log("res")
  }
  const googleFailure = (error) => {
   console.log(error)
@@ -73,7 +73,7 @@ const Auth = () => {
      <Avatar className={classes.avatar}>
       <LockOutlinedIcon />
      </Avatar>
-     <Typography varient="h5">{isSignup ? 'SignUp' : 'SignIn'}</Typography>
+     <Typography variant="h5">{isSignup ? 'SignUp' : 'SignIn'}</Typography>
 
      <form className={classes.form} onSubmit={handleSubmit}>
       <Grid container spacing={2}>

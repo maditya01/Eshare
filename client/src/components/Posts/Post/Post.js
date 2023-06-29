@@ -10,7 +10,6 @@ import DeleteIcon from '@material-ui/icons/Delete'
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt'
 import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined'
 import {deletePost, likePost} from '../../../actions/posts.js'
-
 //Singula Post is Comming.
 const Post = ({post, setCurrentId}) => {
  const classes = useStyles()

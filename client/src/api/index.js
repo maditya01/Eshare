@@ -35,7 +35,7 @@ export const deletePost = (id) => API.delete(`/posts/${id}`)
 
 //Given Url  par backend me request karega server se
 export const likePost = (id) => API.patch(`/posts/${id}/likePost`)
-
+console.log("In API / index.js folder")
 export const signUp = (formData) => API.post('/user/signup', formData)
 export const signIn = (formData) => API.post('/user/signin', formData)
 

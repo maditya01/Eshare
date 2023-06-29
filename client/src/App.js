@@ -12,7 +12,8 @@ import ArticleDetails from './components/ArticleDetails/ArticleDetails.js'
 
 //This is our Top most App(root) Component.
 const App = () => {
- const user = JSON.parse(localStorage.getItem('profile'))
+    const user = JSON.parse(localStorage.getItem('profile'))
+    
  console.log(user)
  return (
   <BrowserRouter>
