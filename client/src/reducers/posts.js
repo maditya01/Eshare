@@ -44,7 +44,8 @@ const getReducerPosts = (state = {isLoading: true, posts: []}, action) => {
   case LIKE:
    return {...state, posts: state.posts.map((post) => (post._id === action.payload._id ? action.payload : post))}
   case CREATE:
-   return {...state, posts: [...state, action.payload]}
+   //yha par mistake ho rha tha ki add karne ke baad add nhi ho rha tha
+   return {...state, posts: [...state.posts, action.payload]}
   default:
    return state
  }
