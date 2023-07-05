@@ -12,15 +12,15 @@ import ArticleDetails from './components/ArticleDetails/ArticleDetails.js'
 
 //This is our Top most App(root) Component.
 const App = () => {
-    const user = JSON.parse(localStorage.getItem('profile'))
-    
+ const user = JSON.parse(localStorage.getItem('profile'))
+ console.log('in app.js')
  console.log(user)
  return (
   <BrowserRouter>
    <Container maxWidth="lg">
     <Routes>
      {/* Authentication Related Path */}
-     <Route path="/auth" element={!user ? <Auth /> : <Navigate to="/memories" />} />
+     <Route path="/auth" exact element={!user ? <Auth /> : <Navigate to="/memories" />} />
      {/* Memories Related Path  */}
      <Route path="/" element={<Home />} />
      <Route path="/memories" element={<Memories />} />

@@ -93,17 +93,17 @@ export const likePost = (id) => async (dispatch) => {
   const {data} = await api.likePost(id)
   dispatch({type: LIKE, payload: data})
  } catch (error) {
-  console.log(` Aditya is Error Comming ${error}`)
+  console.log(` Some error is comming ${error}`)
  }
 }
 
 export const commentPosts = (finalComment, id) => async (dispatch) => {
  try {
   const {data} = await api.commentPosts(finalComment, id)
-//   console.log('inside CommentPost api.commentPosts')
-//   console.log(data)
+  //   console.log('inside CommentPost api.commentPosts')
+  //   console.log(data)
   dispatch({type: 'COMMENT', payload: data})
-  return data.comments
+  return data.comments //Here  I have written return statement that's why in CommentSection page i am storing in newComments variable
  } catch (error) {
   console.log(error)
  }

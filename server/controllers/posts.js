@@ -110,7 +110,7 @@ export const likePost = async (req, res) => {
   const post = await PostMessage.findById(_id);
   // console.log(post);
   const index = post.likes.findIndex((id) => id === String(req.userId));
-  console.log(`${index} is this you know`);
+  // console.log(`${index} is this you know`);
   if (index === -1) {
     //Like the Post
     post.likes.push(req.userId);

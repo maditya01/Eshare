@@ -3,8 +3,6 @@
 //Route ke milne par chalega.
 //Do route ka SAME HTTP REQUEST,ROUTE NHI HO SAKTA HAI.
 
-
-
 import express from "express";
 import auth from "../middleware/auth.js";
 import {

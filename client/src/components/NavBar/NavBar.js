@@ -16,7 +16,8 @@ const NavBar = ({text}) => {
  //  const location = useLocation()
  //  console.log(location)
  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
-console.log(user);
+ //  console.log(user)
+ //  console.log(location)
  const logout = () => {
   dispatch({type: 'LOGOUT'})
   navigate(`/memories`)

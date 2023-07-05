@@ -86,7 +86,7 @@ const Memories = () => {
 
    <Grow in>
     <Container maxWidth={'xl'}>
-     {/* xtra small device ke full width 12 small keliey 7 */}
+     {/* xtra small device ke full width 12 small ke liye 7 */}
      <Grid container spacing={3} className={classes.gridContainer} justify="space-between" alignItems="stretch">
       {/* Grid Item-1*/}
       <Grid item xs={12} sm={6} md={9}>

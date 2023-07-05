@@ -9,22 +9,33 @@ const CommentSection = ({post}) => {
  //  console.log('inside CommentSection')
  //  console.log(post?.comments)
  const [comments, setComments] = useState(post?.comments)
+ const commentsRef = useRef()
  const [comment, setComment] = useState('')
  const dispatch = useDispatch()
  function onTextChange(e) {
+  //   console.log(e.target.value)
   setComment(e.target.value)
-  setComments({...comments, comment})
  }
- const handleComments = () => {
+ const handleComments = async () => {
   if (comment.length < 1) {
    alert('Enter Comment')
    return
   }
-  //i have to dispatch Comments
-  const finalComment = `${user.result.name}: ${comment}`
-  //   console.log(finalComment)
-  dispatch(commentPosts(finalComment, post._id))
+  const newComments = await dispatch(commentPosts(`${user?.result?.name}: ${comment}`, post._id))
+
   setComment('')
+  setComments(newComments)
+
+  //   commentsRef?.current.scrollIntoView({behavior: 'smooth'})
+
+  //   console.log(comment)
+  //   setComments({...comments, comment})
+  //   console.log(comments);
+  //   //i have to dispatch Comments
+  //   const finalComment = `${user.result.name}: ${comment}`
+  //   //   console.log(finalComment)
+  //   dispatch(commentPosts(finalComment, post._id))
+  //   setComment('')
  }
  return (
   <div className={classes.commentsOuterContainer}>

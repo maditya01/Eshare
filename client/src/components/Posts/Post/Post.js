@@ -26,7 +26,7 @@ const Post = ({post, setCurrentId}) => {
  //After Clicking on 3 dots.i have set the current Post ID.
  const moreHoriz = () => {
   setCurrentId(post._id)
-  //This value passed above to the parent component.
+  //This value passed above to the parent component.Lifting state up wala concept lag rha hai.
   // Post->Posts->Home
   //Home->Form(Form Ko Update Karega usme previous Value Fill kar dega)
  }
