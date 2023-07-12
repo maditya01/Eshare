@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+//Created a mongoose schema object
 const postSchema = mongoose.Schema({
   // Declare  all The Attributes
   title: String,
@@ -22,6 +22,6 @@ const postSchema = mongoose.Schema({
     default: new Date(),
   },
 });
-
+//Created a mongoose model
 var PostMessage = mongoose.model("PostMessage", postSchema);
 export default PostMessage;

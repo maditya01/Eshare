@@ -11,7 +11,6 @@ import {signup, signin} from '../../actions/auth'
 
 const initialState = {firstName: '', lastName: '', email: '', password: '', confirmPassword: ''}
 const Auth = () => {
- const pathname = window.location.pathname
  //  console.log(pathname)
  const classes = useStyles()
  const dispatch = useDispatch()
@@ -20,33 +19,29 @@ const Auth = () => {
  const [formData, setFormData] = useState(initialState)
  const [isSignup, setIsSignUp] = useState(true)
 
-    
  const handleSubmit = (e) => {
   e.preventDefault()
-  //   console.log(formData)
   if (isSignup) {
-   var obj = signup(formData, navigate, pathname)
-   console.log('IsSignUp')
-   //    console.log(obj)
-   dispatch(obj)
+   dispatch(signup(formData, navigate))
   } else {
-   console.log('IsSignIn')
-   dispatch(signin(formData, navigate, pathname))
+   dispatch(signin(formData, navigate))
   }
  }
 
-    
  const handleChange = (e) => {
   //This is The important Concept To include current Changing Input Field
   setFormData({...formData, [e.target.name]: e.target.value})
  }
 
- const switchMode = () => setIsSignUp((prevState) => !prevState)
-
+ const switchMode = () => {
+  setFormData(initialState)
+  setIsSignUp((prevIsSignup) => !prevIsSignup)
+  setShowPassword(false)
+ }
  //google auth Code.
  const googleSuccess = async (res) => {
   //What are the different properties we get after google Succes.
-  // console.log(res);
+  console.log(res)
   const result = res?.profileObj
   const token = res?.tokenId
   try {
@@ -58,10 +53,17 @@ const Auth = () => {
   }
   //   console.log("res")
  }
+
  const googleFailure = (error) => {
   console.log(error)
   console.log('Google sign in failure this is  not working')
  }
+
+ const renderGoogleLogin = (renderProps) => (
+  <Button className={classes.googleButton} color="primary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} variant="contained" startIcon={<Icon />}>
+   Google Login
+  </Button>
+ )
 
  const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword)
 
@@ -90,23 +92,13 @@ const Auth = () => {
 
       {/* Normal Email Password Login Method */}
       <Button type="submit" variant="contained" fullWidth color="primary" className={classes.submit}>
-       {isSignup ? 'SignUp' : 'SignIn'}
+       {isSignup ? 'Sign Up' : 'Sign In'}
       </Button>
 
       {/* Google Login Component Code  */}
-      <GoogleLogin
-       clientId="484186901299-a34oi29mnr2b5sbq0obnq4e82i7rnvsg.apps.googleusercontent.com"
-       render={(renderProps) => (
-        <Button className={classes.googleButton} color="primary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} variant="contained" startIcon={<Icon />}>
-         Google Login
-        </Button>
-       )}
-       onSuccess={googleSuccess}
-       onFailure={googleFailure}
-       cookiePolicy={'single_host_origin'}
-      />
+      <GoogleLogin clientId="484186901299-a34oi29mnr2b5sbq0obnq4e82i7rnvsg.apps.googleusercontent.com" render={renderGoogleLogin} onSuccess={googleSuccess} onFailure={googleFailure} cookiePolicy={'single_host_origin'} />
 
-      <Grid container justify="flex-end">
+      <Grid container justifyContent="flex-end">
        <Grid item>
         <Button onClick={switchMode}>{isSignup ? 'Already have an Account? SignIn' : "Don't Have an Account? SignUp"}</Button>
        </Grid>

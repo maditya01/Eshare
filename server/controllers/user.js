@@ -32,7 +32,6 @@ export const signin = async (req, res) => {
   //http://localhost:3001/user/signup
 };
 
-
 export const signup = async (req, res) => {
   //http://localhost:3001/user/signup
   // What we have to do when we hit this url
