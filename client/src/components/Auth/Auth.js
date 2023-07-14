@@ -41,7 +41,7 @@ const Auth = () => {
  //google auth Code.
  const googleSuccess = async (res) => {
   //What are the different properties we get after google Succes.
-  console.log(res)
+//   console.log(res)
   const result = res?.profileObj
   const token = res?.tokenId
   try {

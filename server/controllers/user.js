@@ -8,7 +8,7 @@ export const signin = async (req, res) => {
   try {
     const existingUser = await User.findOne({ email });
     if (!existingUser) {
-      return res.status(404).json({ message: "User doe's not exist" });
+      return res.status(404).json({ message: "User does not exist" });
     }
     const isPasswordCorrect = await bcrypt.compare(
       password,
@@ -50,6 +50,7 @@ export const signup = async (req, res) => {
       email,
       password: hashedPassword,
     });
+    //What is the Need of token?
     const token = jwt.sign({ email: result.email, id: result._id }, "test", {
       expiresIn: "4h",
     });
