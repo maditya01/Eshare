@@ -108,3 +108,10 @@ export const commentPosts = (finalComment, id) => async (dispatch) => {
   console.log(error)
  }
 }
+export const commentOnPost = (newComment,id) =>async (dispatch) =>{
+    try{
+        const {data} = await api.commentOnPost(newComment, id)
+    }catch(error){
+        console.log(error);
+    }
+}

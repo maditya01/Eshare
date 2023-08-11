@@ -43,10 +43,12 @@ export default makeStyles((theme) => ({
   height: '39vh',
  },
  commentsOuterContainer: {
+  height:'200px',
   display: 'flex',
   justifyContent: 'space-between',
  },
  commentsInnerContainer: {
+    width:'100%',
   height: '200px',
   overflowY: 'auto',
   marginRight: '30px',

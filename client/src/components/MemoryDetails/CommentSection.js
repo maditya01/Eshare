@@ -2,6 +2,7 @@ import React, {useState, useRef} from 'react'
 import {Typography, TextField, Button} from '@material-ui/core'
 import {useDispatch} from 'react-redux'
 import useStyles from './styles'
+import DeleteIcon from '@material-ui/icons/Delete'
 import {commentPosts} from '../../actions/posts'
 const CommentSection = ({post}) => {
  const classes = useStyles()
@@ -16,16 +17,17 @@ const CommentSection = ({post}) => {
   //   console.log(e.target.value)
   setComment(e.target.value)
  }
+
+
  const handleComments = async () => {
   if (comment.length < 1) {
    alert('Enter Comment')
    return
   }
+  console.log(user?.result.googleId)
   const newComments = await dispatch(commentPosts(`${user?.result?.name}: ${comment}`, post._id))
-
-  setComment('')
   setComments(newComments)
-
+  setComment('') // Problem is here.
   //   commentsRef?.current.scrollIntoView({behavior: 'smooth'})
 
   //   console.log(comment)
@@ -44,8 +46,19 @@ const CommentSection = ({post}) => {
      Comments
     </Typography>
     {comments.map((c, i) => (
-     <Typography style={{background: 'pink'}} key={i} gutterBottom variant="subtitle1">
+     <Typography style={{background: 'pink',display:'flex' , justifyContent: 'space-between',}} key={i} gutterBottom variant="subtitle1">
       {c}
+      {/* Trying to add delete button in comment you have done
+       <Button
+      size="small"
+      color="primary"
+      onClick={() => {
+    //    dispatch(deleteComment(post._id))
+      }}
+     >
+      <DeleteIcon fontSize="small" />
+      Delete
+     </Button> */}
      </Typography>
     ))}
    </div>

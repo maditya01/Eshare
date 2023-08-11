@@ -5,6 +5,7 @@
 //Here we talk to Database
 //Importing PostMessage Model (LIKE A TABLE IN SQL)
 import PostMessage from "../models/postMessage.js";
+import NewComment from "../models/Comment.js";
 import express from "express";
 const router = express.Router();
 import mongoose from "mongoose";
@@ -125,12 +126,24 @@ export const likePost = async (req, res) => {
 };
 
 export const commentPosts = async (req, res) => {
+  console.log(req);
   const { id } = req.params;
   const { finalComment } = req.body;
   const post = await PostMessage.findById(id); //object return hoga
   post.comments.push(finalComment);
-  const updatePost = await PostMessage.findByIdAndUpdate(id, post, {
+  const updatedPost = await PostMessage.findByIdAndUpdate(id, post, {
     new: true,
   });
-  res.json(updatePost);
+  res.json(updatedPost);
 };
+
+export const commentOnPost = async(req,res) =>{
+  const commentBody = req.body;
+  const newComm = new NewComment({
+    ...commentBody,
+    username:req.username,
+    userId:req.userId,
+    createdAt: new Date().toISOString()
+  })
+
+}

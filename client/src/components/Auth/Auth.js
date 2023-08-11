@@ -12,13 +12,14 @@ import {signup, signin} from '../../actions/auth'
 const initialState = {firstName: '', lastName: '', email: '', password: '', confirmPassword: ''}
 const Auth = () => {
  //  console.log(pathname)
- const classes = useStyles()
+ const classes = useStyles() 
  const dispatch = useDispatch()
  const navigate = useNavigate()
  const [showPassword, setShowPassword] = useState(false)
  const [formData, setFormData] = useState(initialState)
  const [isSignup, setIsSignUp] = useState(true)
-
+ const [emailState,setEmailState]  = useState(true)
+  const [passState,setPassState]  = useState(true)
  const handleSubmit = (e) => {
   e.preventDefault()
   if (isSignup) {
@@ -27,14 +28,29 @@ const Auth = () => {
    dispatch(signin(formData, navigate))
   }
  }
-
+const validatorHandler = ()=>{
+  if(isSignup){
+     if(!(formData.email).includes("@")) return true;
+     if(!formData.password.length>=8) return true;
+     if(!(formData.password===formData.confirmPassword)) return true;
+  }else{
+    // console.log("Here")
+    // console.log(formData)
+    if(!(formData.email).includes("@")) return true;
+    if(!formData.password.length>=8) return true;
+  }
+     return false; 
+}
  const handleChange = (e) => {
   //This is The important Concept To include current Changing Input Field
   setFormData({...formData, [e.target.name]: e.target.value})
+  // console.log(formData)
  }
 
  const switchMode = () => {
+  console.log(initialState)
   setFormData(initialState)
+  console.log(formData)
   setIsSignUp((prevIsSignup) => !prevIsSignup)
   setShowPassword(false)
  }
@@ -85,13 +101,13 @@ const Auth = () => {
          <Input name="lastName" label="Last Name" handleChange={handleChange} half />
         </>
        )}
-       <Input name="email" label="Email Address" handleChange={handleChange} type="email" />
-       <Input name="password" label="Password" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
+       <Input name="email" value={formData.email} label="Email Address" handleChange={handleChange} type="email" />
+       <Input name="password" value={formData.password} label="Password" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
        {isSignup && <Input name="confirmPassword" label="Confirm Password" handleChange={handleChange} type="password" handleShowPassword={handleShowPassword} />}
       </Grid>
 
       {/* Normal Email Password Login Method */}
-      <Button type="submit" variant="contained" fullWidth color="primary" className={classes.submit}>
+      <Button disabled={validatorHandler()} type="submit" variant="contained" fullWidth color="primary" className={classes.submit}>
        {isSignup ? 'Sign Up' : 'Sign In'}
       </Button>
 

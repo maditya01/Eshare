@@ -20,15 +20,15 @@ const NavBar = ({text}) => {
  //  console.log(location)
  const logout = () => {
   dispatch({type: 'LOGOUT'})
-  navigate(`/memories`)
   setUser(null)
+  navigate(`/memories`)
  }
  useEffect(() => {
   const token = user?.token
 
   if (token) {
    const decodedToken = decode(token)
-   console.log(decodedToken)
+   console.log(`decoded token ${decodedToken}`)
    if (decodedToken.exp * 1000 < new Date().getTime()) logout()
   }
   setUser(JSON.parse(localStorage.getItem('profile')))
@@ -45,9 +45,9 @@ const NavBar = ({text}) => {
    <Toolbar className={classes.toolbar}>
     {user ? (
      <div className={classes.profile}>
-      <Avatar className={classes.purple} alt={user.result.name} src={user.result.imageUrl}></Avatar>
+      <Avatar className={classes.purple} alt={user?.result.name} src={user?.result.imageUrl}></Avatar>
       <Typography className={classes.userName} varient="h6">
-       {user.result.name}
+       {user?.result.name}
       </Typography>
       <Button className={classes.logout} variant="contained" color="primary" onClick={logout}>
        LogOut

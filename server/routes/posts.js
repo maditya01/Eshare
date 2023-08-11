@@ -6,6 +6,7 @@
 import express from "express";
 import auth from "../middleware/auth.js";
 import {
+  commentOnPost,
   commentPosts,
   getPost,
   getPostsBySearch,
@@ -31,6 +32,7 @@ router.patch("/:id", auth, updatePost);
 //A single Post is identified using their ID.
 router.delete("/:id", auth, deletePost);
 router.post("/:id/commentPost", auth, commentPosts);
+router.post("/:id/commentOnPost",auth,commentOnPost);
 
 router.patch("/:id/likePost", auth, likePost);
 

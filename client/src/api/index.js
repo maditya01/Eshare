@@ -42,3 +42,5 @@ export const signIn = (formData) => API.post('/user/signin', formData)
 export const fetchPostsBySearch = (searchQuery) => API.get(`/posts/search?searchMemories=${searchQuery.search || 'none'}&searchTags=${searchQuery.tags}`)
 
 export const commentPosts = (finalComment, id) => API.post(`/posts/${id}/commentPost`, {finalComment})
+
+export const commentOnPost = (newComment,id)=> API.post(`/posts/${id}/commentOnPost`,{newComment})

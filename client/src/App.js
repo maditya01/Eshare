@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import {BrowserRouter, Route, Routes, Navigate} from 'react-router-dom'
 import {Container} from '@material-ui/core'
 import Home from './components/Home/Home.js'
@@ -12,8 +12,11 @@ import ArticleDetails from './components/ArticleDetails/ArticleDetails.js'
 
 //This is our Top most App(root) Component.
 const App = () => {
- const user = JSON.parse(localStorage.getItem('profile'))
- console.log('in app.js')
+ const  user = JSON.parse(localStorage.getItem('profile'));
+//  useEffect(()=>{
+//     user = JSON.parse(localStorage.getItem('profile'))
+//  },[user])
+//  console.log('in app.js')
  console.log(user)
  return (
   <BrowserRouter>

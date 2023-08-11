@@ -13,7 +13,7 @@ export const signup = (formData, navigate) => async (dispatch) => {
   // console.log('Sign-up Error')
   alert(error.message)
  }
-}
+} 
 export const signin = (formData, navigate) => async (dispatch) => {
  try {
   const {data} = await api.signIn(formData)

@@ -44,7 +44,8 @@ const getReducerPosts = (state = {isLoading: true, posts: []}, action) => {
   case LIKE:
    return {...state, posts: state.posts.map((post) => (post._id === action.payload._id ? action.payload : post))}
   case CREATE:
-   //yha par mistake ho rha tha ki add karne ke baad add nhi ho rha tha ak aur cheez new post end me add ho rha tha uske liye unshift use kiya hun
+   //yha par mistake ho rha tha ki add karne ke baad add nhi ho rha tha ak aur cheez new post end 
+   //me add ho rha tha uske liye unshift use kiya hun
    const tpost = state.posts
    tpost.unshift(action.payload)
    return {...state, posts: tpost}
