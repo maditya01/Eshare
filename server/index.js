@@ -6,24 +6,24 @@ import postRoutes from "./routes/posts.js";
 import userRoutes from "./routes/users.js";
 import dotenv from "dotenv";
 
-const app = express(); //We are Getting Our App
+
+const app = express();
 
 dotenv.config();
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-
 app.use(cors());
-// app.get("/", (req, res) => {
-//   res.send("Hello Memories App");
-//   console.log("Hello Memories App");
-// });
-//Below hona chahiye.
+
+//Go to incomming matched rest-api request 
 app.use("/posts", postRoutes);
 app.use("/user", userRoutes);
+
+//Get the Port from env file
 const PORT = process.env.PORT || 3001;
-console.log(PORT);
+//Get the Connection URL from env file
 const CONNECTION_URL = process.env.MONGO_URI;
-// console.log(PORT, CONNECTION_URL, process.env.NODE_ENV);
+
+//Connection to the mongoDb database using mongoose
 mongoose
   .connect(CONNECTION_URL)
   .then(() =>

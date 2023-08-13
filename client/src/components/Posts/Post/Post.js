@@ -3,14 +3,22 @@ import useStyles from './styles.js'
 import moment from 'moment'
 import {useNavigate} from 'react-router-dom'
 import {useDispatch} from 'react-redux'
-//Here We have Single Post Only One post.
 import {Card, ButtonBase, CardActions, CardContent, CardMedia, Button, Typography} from '@material-ui/core'
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz'
 import DeleteIcon from '@material-ui/icons/Delete'
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt'
 import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined'
 import {deletePost, likePost} from '../../../actions/posts.js'
-//Singula Post is Comming.
+
+
+/*In this component we have a single post which has all the properties of post including his id
+Memories->Posts->Post .This will be the order in which we will come at this component.
+*/
+
+/* Here we have 2 props one is unique post and second is setCurrentId which is used to set id of the post 
+which will reflect in some other component through props chaining from child to parent.
+*/
+
 const Post = ({post, setCurrentId}) => {
  const classes = useStyles()
  const dispatch = useDispatch()
