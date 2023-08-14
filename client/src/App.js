@@ -10,14 +10,10 @@ import MemoryDetails from './components/MemoryDetails/MemoryDetails'
 import TinyEditor from './components/Editor/TinyEditor'
 import ArticleDetails from './components/ArticleDetails/ArticleDetails.js'
 
-//This is our Top most App(root) Component.
+/*This is our Top most App(root) Component.*/ 
+
 const App = () => {
  const  user = JSON.parse(localStorage.getItem('profile'));
-//  useEffect(()=>{
-//     user = JSON.parse(localStorage.getItem('profile'))
-//  },[user])
-//  console.log('in app.js')
- console.log(user)
  return (
   <BrowserRouter>
    <Container maxWidth="lg">
