@@ -1,27 +1,21 @@
-import * as api from '../api/index.js' //We are importing everything from api folder as api.
+//We are importing everything from api folder as api.
+import * as api from '../api/index.js'
 import {FETCH_POST, FETCH_BY_SEARCH, START_LOADING, END_LOADING, FETCH_ALL, UPDATE, DELETE, CREATE, LIKE} from '../constants/actionType.js'
+
+
 //Action creators that returns actions.
-// console.log('actions->posts.js File')
 export const getPosts = (page) => async (dispatch) => {
+    // console.log("action->posts->getPosts");
  try {
   dispatch({type: START_LOADING})
-  //Getting data  from our backend
-  // console.log(page)
   const {data} = await api.fetchPosts(page)
-  //we pass that data in to dispatch and also we tell type.
   dispatch({type: FETCH_ALL, payload: data})
   dispatch({type: END_LOADING})
  } catch (error) {
   console.log(error)
  }
- //   //action is a  object witch has a type and payload which has a data.
- //   const action = {
- //     type: "FETCH_ALL",
- //     payload: [],
- //   };
- //   //Due to redux thunk we are dealing with asynchrous .
- //   dispatch(action);
 }
+
 export const getPost = (id) => async (dispatch) => {
  try {
   dispatch({type: START_LOADING})
@@ -34,13 +28,6 @@ export const getPost = (id) => async (dispatch) => {
  } catch (error) {
   console.log(error)
  }
- //   //action is a  object witch has a type and payload which has a data.
- //   const action = {
- //     type: "FETCH_ALL",
- //     payload: [],
- //   };
- //   //Due to redux thunk we are dealing with asynchrous .
- //   dispatch(action);
 }
 
 export const getPostsBySearch = (searchQuery) => async (dispatch) => {
@@ -100,10 +87,9 @@ export const likePost = (id) => async (dispatch) => {
 export const commentPosts = (finalComment, id) => async (dispatch) => {
  try {
   const {data} = await api.commentPosts(finalComment, id)
-  //   console.log('inside CommentPost api.commentPosts')
-  //   console.log(data)
   dispatch({type: 'COMMENT', payload: data})
-  return data.comments //Here  I have written return statement that's why in CommentSection page i am storing in newComments variable
+  //Here  I have written return statement that's why in CommentSection page i am storing in newComments variable
+  return data.comments
  } catch (error) {
   console.log(error)
  }

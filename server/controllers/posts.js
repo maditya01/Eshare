@@ -52,9 +52,9 @@ Serves the request to get all the posts which is matched with search query. sera
 Search according to tags or tille. get values through req.query
 */
 export const getPostsBySearch = async (req, res) => {
-  const { searchMemories, searchTags } = req.query;
+  const {searchQuery, searchTags } = req.query;
   try {
-    const title = new RegExp(searchMemories, "i");
+    const title = new RegExp(searchQuery, "i");
     /*Find all the post that matches either title or tags.*/
     const posts = await PostMessage.find({
       $or: [{ title }, { tags: { $in: searchTags.split(",") } }],
@@ -140,7 +140,7 @@ export const likePost = async (req, res) => {
 model If a post has so many comment then we have to move comment array outSide a postMessage model.
 */
 export const commentPosts = async (req, res) => {
-  console.log(req);
+  // console.log(req);
   const { id } = req.params;
   const { finalComment } = req.body;
   const post = await PostMessage.findById(id); //object return hoga

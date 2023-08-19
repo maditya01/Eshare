@@ -11,7 +11,7 @@ const Paginate = ({page}) => {
  //Any time when page changes we want to dispatch posts
  useEffect(() => {
   if(page) dispatch(getPosts(page))
- }, [page,dispatch])
+ }, [page, dispatch])
  const classes = useStyles()
  return <Pagination classes={{ul: classes.ul}} count={totalNumberofPages} page={Number(page) || 1} variant="outlined" color="primary" renderItem={(item) => <PaginationItem {...item} component={Link} to={`/memories?page=${item.page}`} />} />
 }

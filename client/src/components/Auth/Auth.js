@@ -30,13 +30,15 @@ const Auth = () => {
 
   /*Validate email password and confirm password according to normal condition */
   const validatorHandler = () => {
+    const includeAttherate = (formData.email.includes("@"))
+    // console.log(includeAttherate,isSignup);
     if (isSignup) {
-      if (!(formData.email).includes("@")) return true;
-      if (!formData.password.length >= 8) return true;
+      if (!(includeAttherate)) return true;
+      if (formData.password.length < 8) return true;
       if (!(formData.password === formData.confirmPassword)) return true;
     } else {
-      if (!(formData.email).includes("@")) return true;
-      if (!formData.password.length >= 8) return true;
+      if (!(includeAttherate)) return true;
+      if ((formData.password.length) < 8) return true;
     }
     return false;
   }
@@ -105,8 +107,8 @@ const Auth = () => {
                   <Input name="lastName" label="Last Name" handleChange={handleChange} half />
                 </>
               )}
-              <Input name="email" value={formData.email} label="Email Address" handleChange={handleChange} type="email" />
-              <Input name="password" value={formData.password} label="Password" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
+              <Input name="email"  label="Email Address" handleChange={handleChange} type="email" />
+              <Input name="password"  label="Password" handleChange={handleChange} type={showPassword ? 'text' : 'password'} handleShowPassword={handleShowPassword} />
               {isSignup && <Input name="confirmPassword" label="Confirm Password" handleChange={handleChange} type="password" handleShowPassword={handleShowPassword} />}
             </Grid>
             {/* Normal Email Password Login Method */}

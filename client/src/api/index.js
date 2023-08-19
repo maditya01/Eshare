@@ -14,7 +14,7 @@ API.interceptors.request.use((req) => {
  //mai req return nhi kar rha that isliye error aa rha tha
  return req
 })
-
+// console.log("In api/index.js folder")
 //OUR BACKEND WILL GET A SPECIFIC TYPE OF HEADERS.
 
 //Isi page se backend me ja rha hai.
@@ -35,11 +35,11 @@ export const deletePost = (id) => API.delete(`/posts/${id}`)
 
 //Given Url  par backend me request karega server se
 export const likePost = (id) => API.patch(`/posts/${id}/likePost`)
-console.log("In API / index.js folder")
+
 export const signUp = (formData) => API.post('/user/signup', formData)
 export const signIn = (formData) => API.post('/user/signin', formData)
 
-export const fetchPostsBySearch = (searchQuery) => API.get(`/posts/search?searchMemories=${searchQuery.search || 'none'}&searchTags=${searchQuery.tags}`)
+export const fetchPostsBySearch = (searchQuery) => API.get(`/posts/search?searchQuery=${searchQuery.search || 'none'}&searchTags=${searchQuery.tags}`)
 
 export const commentPosts = (finalComment, id) => API.post(`/posts/${id}/commentPost`, {finalComment})
 

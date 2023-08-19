@@ -3,29 +3,18 @@ import useStyles from './styles.js'
 import {useNavigate} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux'
 import getReducerPosts from '../../reducers/posts'
-//We have to import inside {} why.?
 import {creationPost, updatePost} from '../../actions/posts'
-// export const updatePost = (id, post) => async (dispatch) => {
-//  try {
-//   const {data} = await api.updatePost(id, post)
-//   dispatch({type: UPDATE, payload: data})
-//  } catch (error) {
-//   console.log(error.message)
-//  }
-// }
 import {useEffect} from 'react'
 import {TextField, Button, Typography, Paper, Box} from '@material-ui/core'
-//
 import FileBase from 'react-file-base64'
 
 const Form = ({currentId, setCurrentId}) => {
  const navigate = useNavigate()
- //  console.log(tpost)
  const [postData, setPostData] = useState({
   title: '',
   message: '',
   tags: '',
-  selectedFile: '', //we Converted our Image in to base 64 String .
+  selectedFile: '', //We have to  convert our image in to base 64 String.
  })
 
  const post = useSelector((state) => (currentId ? state.getReducerPosts.posts.find((p) => p._id === currentId) : null))
@@ -50,26 +39,18 @@ const Form = ({currentId, setCurrentId}) => {
    selectedFile: '',
   })
  }
-
- //some problem in handling
- // before reload when we submit post will be seen
  const submitHandler = (e) => {
   e.preventDefault()
-  //   console.log(postData)
   if (currentId === null) {
    dispatch(creationPost({...postData, name: user?.result?.name}))
    navigate('/memories')
   } else {
    const res = updatePost(currentId, {...postData, name: user?.result?.name})
-   //    console.log(res)
    dispatch(res)
   }
   clear()
-  //dispatch ke under kya pass hoga
-
-  //When action is dispatch we go to reducer.
  }
- //user Logged in Nhi hai To Ye return Kar Do
+ /*If user is not logged in then we will show this thing */
  if (!user?.result?.name) {
   return (
    <Box pt={3}>

@@ -10,8 +10,7 @@ export const signup = (formData, navigate) => async (dispatch) => {
   dispatch({type: AUTH, data})
   navigate('/memories')
  } catch (error) {
-  // console.log('Sign-up Error')
-  alert(error.message)
+  console.log(error.message)
  }
 } 
 export const signin = (formData, navigate) => async (dispatch) => {
@@ -20,8 +19,6 @@ export const signin = (formData, navigate) => async (dispatch) => {
   dispatch({type: 'AUTH', data})
   navigate('/memories')
  } catch (error) {
-  alert(error.message)
-  // console.log('Sign-in Error')
-  // console.log(error)
+  console.log(error.message)
  }
 }

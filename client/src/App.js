@@ -13,13 +13,12 @@ import ArticleDetails from './components/ArticleDetails/ArticleDetails.js'
 /*This is our Top most App(root) Component.*/ 
 
 const App = () => {
+    // console.log("App 1");
  const  user = JSON.parse(localStorage.getItem('profile'));
  return (
   <BrowserRouter>
    <Container maxWidth="lg">
     <Routes>
-     {/* Authentication Related Path */}
-     <Route path="/auth" exact element={!user ? <Auth /> : <Navigate to="/memories" />} />
      {/* Memories Related Path  */}
      <Route path="/" element={<Home />} />
      <Route path="/memories" element={<Memories />} />
@@ -31,6 +30,8 @@ const App = () => {
      <Route path="/articles/create-article" element={<TinyEditor />} />
      {/* News Related Path */}
      <Route path="/news" element={<News />} />
+     {/* Authentication Related Path */}
+     <Route path="/auth" exact element={!user ? <Auth /> : <Navigate to="/memories" />} />
     </Routes>
    </Container>
   </BrowserRouter>

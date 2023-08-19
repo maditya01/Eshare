@@ -29,6 +29,7 @@ function useQuery() {
 
 
 const Memories = () => {
+    // console.log("Memories 2");
     /*
     The useStyles function is a React hook that can be used 
     to generate CSS stylesheets and inject to custom 
@@ -52,7 +53,7 @@ const Memories = () => {
 
     /*  */
     const page = query.get('page') || 1
-
+    const searchQuery = query.get('searchQuery')
     /*The useDispatch hook is used to update the state of the component and return a new state.
     */
     const dispatch = useDispatch()
@@ -68,7 +69,8 @@ const Memories = () => {
         if (search.trim() || tags) {
             // we can not pass an array from frontend [europe asia]->as an string 'europe,asia'
             const res = getPostsBySearch({ search, tags: tags.join(',') })
-            navigate(`/memories/search?searchMemories=${search || 'none'}&searchTags=${tags.join(',')}`)
+            dispatch(res);
+            navigate(`/memories/search?searchQuery=${search || 'none'}&searchTags=${tags.join(',')}`)
         } else {
             navigate('/')
         }
@@ -117,11 +119,12 @@ const Memories = () => {
                             <Form currentId={currentId} setCurrentId={setCurrentId} />
 
                             {/*Section- 5*/}
-                            <Box mt={2}>
+                            {(!searchQuery && !tags.length) && (<Box mt={2}>
                                 <Paper elevation={6}>
                                     <Paginate page={page} className={classes.pagination} />
                                 </Paper>
-                            </Box>
+                            </Box>)
+                            }
                         </Grid>
                     </Grid>
                 </Container>

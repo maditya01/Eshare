@@ -11,6 +11,7 @@ Its parent component which is Memories send this props and this component will d
 */
 
 const Posts = ({ setCurrentId }) => {
+  // console.log("Posts 4");
   const classes = useStyles()
 
   /*
@@ -21,8 +22,9 @@ const Posts = ({ setCurrentId }) => {
   Component is updated using useSelector.
   Here in posts we are getting all the posts present in website
   */
+  // console.log("before useSelection postsjs")
   const { posts, isLoading } = useSelector((state) => state.getReducerPosts)
-
+  // console.log("After useSelection postsjs")
 
   /*If there is no post present in app then return */
   if (!posts?.length && !isLoading) {

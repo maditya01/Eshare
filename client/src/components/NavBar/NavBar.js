@@ -4,35 +4,36 @@ import {AppBar, Avatar, Button, Toolbar, Typography} from '@material-ui/core'
 import {useDispatch} from 'react-redux'
 import {Link, useNavigate, useLocation} from 'react-router-dom'
 import decode from 'jwt-decode'
-//importing image from image folder
-//I HAVE SOME PROBLME IN THIS FILE
 import memories from '../../images/memories.png'
+
 const NavBar = ({text}) => {
+    // console.log("NavBar 3");
  const classes = useStyles()
  const dispatch = useDispatch()
 
  const navigate = useNavigate()
  const location = useLocation()
- //  const location = useLocation()
- //  console.log(location)
+//  console.log(location);
+
  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
- //  console.log(user)
- //  console.log(location)
  const logout = () => {
   dispatch({type: 'LOGOUT'})
   setUser(null)
   navigate(`/memories`)
  }
  useEffect(() => {
+   console.log("in Useeffect")
+   console.log(location)
   const token = user?.token
-
+  console.log(token);
   if (token) {
    const decodedToken = decode(token)
-   console.log(`decoded token ${decodedToken}`)
    if (decodedToken.exp * 1000 < new Date().getTime()) logout()
   }
   setUser(JSON.parse(localStorage.getItem('profile')))
- }, [location])
+ }, [location,user?.token])
+
+
  return (
   <AppBar className={classes.appBar} position="static" color="inherit">
    <div className={classes.brandContainer}>
