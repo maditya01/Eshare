@@ -2,7 +2,7 @@ import axios from 'axios'
 
 //For Deploying on Heroku.->
 //Use the heroku api.
-const API = axios.create({baseURL: 'http://localhost:3001'})
+const API = axios.create({baseURL: 'https://memoriesshare-okx6.onrender.com'})
 
 //Sari Request karne se pahle req me header add kar do with some token
 API.interceptors.request.use((req) => {
