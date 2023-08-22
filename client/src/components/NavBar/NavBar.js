@@ -22,10 +22,10 @@ const NavBar = ({text}) => {
   navigate(`/memories`)
  }
  useEffect(() => {
-   console.log("in Useeffect")
-   console.log(location)
+  //  console.log("in Useeffect")
+  //  console.log(location)
   const token = user?.token
-  console.log(token);
+  // console.log(token);
   if (token) {
    const decodedToken = decode(token)
    if (decodedToken.exp * 1000 < new Date().getTime()) logout()

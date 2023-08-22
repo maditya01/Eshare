@@ -1,4 +1,5 @@
-import React,{useEffect} from 'react'
+import React from 'react'
+import { useSelector } from 'react-redux'
 import {BrowserRouter, Route, Routes, Navigate} from 'react-router-dom'
 import {Container} from '@material-ui/core'
 import Home from './components/Home/Home.js'
@@ -14,13 +15,13 @@ import ArticleDetails from './components/ArticleDetails/ArticleDetails.js'
 
 const App = () => {
     // console.log("App 1");
- const  user = JSON.parse(localStorage.getItem('profile'));
- return (
+    const myuser = useSelector((state)=>state.Auth.authData)
+    return (
   <BrowserRouter>
    <Container maxWidth="lg">
     <Routes>
      {/* Memories Related Path  */}
-     <Route path="/" element={<Home />} />
+     <Route path="/" element={<Memories />} />
      <Route path="/memories" element={<Memories />} />
      <Route path="/memories/search" element={<Memories />} />
      <Route path="/memories/:id" element={<MemoryDetails />} />
@@ -31,7 +32,7 @@ const App = () => {
      {/* News Related Path */}
      <Route path="/news" element={<News />} />
      {/* Authentication Related Path */}
-     <Route path="/auth" exact element={!user ? <Auth /> : <Navigate to="/memories" />} />
+     <Route path="/auth" exact element={!myuser ? <Auth /> : <Navigate to="/memories" />} />
     </Routes>
    </Container>
   </BrowserRouter>

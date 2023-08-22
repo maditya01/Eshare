@@ -19,16 +19,19 @@ const Form = ({currentId, setCurrentId}) => {
 
  const post = useSelector((state) => (currentId ? state.getReducerPosts.posts.find((p) => p._id === currentId) : null))
 
+ /*We are getting auth data direct from reducer
+ Here we will not use localstorage because that thing is done in reducer here just we have to fetch from 
+ global state
+ */
+ const myuser = useSelector((state)=>state.Auth.authData)
+
  const classes = useStyles()
 
  const dispatch = useDispatch()
-
- const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')))
-
  //When post value changes.
  useEffect(() => {
   if (post) setPostData(post)
- }, [post, user])
+ }, [post,myuser])
 
  const clear = () => {
   setCurrentId(null)
@@ -42,16 +45,16 @@ const Form = ({currentId, setCurrentId}) => {
  const submitHandler = (e) => {
   e.preventDefault()
   if (currentId === null) {
-   dispatch(creationPost({...postData, name: user?.result?.name}))
+   dispatch(creationPost({...postData, name: myuser?.result?.name}))
    navigate('/memories')
   } else {
-   const res = updatePost(currentId, {...postData, name: user?.result?.name})
+   const res = updatePost(currentId, {...postData, name: myuser?.result?.name})
    dispatch(res)
   }
   clear()
  }
  /*If user is not logged in then we will show this thing */
- if (!user?.result?.name) {
+ if (!myuser?.result?.name) {
   return (
    <Box pt={3}>
     <Paper elevation={6}>
