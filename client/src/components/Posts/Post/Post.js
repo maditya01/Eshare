@@ -32,7 +32,7 @@ const Post = ({ post, setCurrentId }) => {
 
   //After clicking on 3 dot icon we have to set post id which post has been clicked.
   const moreHoriz = () => {
-     //This value passed above to the parent component.Lifting state up wala concept lag rha hai.
+    //This value passed above to the parent component.Lifting state up wala concept lag rha hai.
     // Post->Posts->Home
     //Home->Form(Form Ko Update Karega usme previous Value Fill kar dega)
     setCurrentId(post._id)
@@ -43,6 +43,10 @@ const Post = ({ post, setCurrentId }) => {
     navigate(`/memories/${post._id}`)
   }
 
+  const handleDelete = () => {
+    dispatch(deletePost(post._id))
+  }
+  
   const handleLike = async () => {
     dispatch(likePost(post._id))
     if (post.likes.find((like_id) => like_id === userId)) {
@@ -118,9 +122,7 @@ const Post = ({ post, setCurrentId }) => {
           <Button
             size="small"
             color="primary"
-            onClick={() => {
-              dispatch(deletePost(post._id))
-            }}
+            onClick={handleDelete}
           >
             <DeleteIcon fontSize="small" />
             Delete

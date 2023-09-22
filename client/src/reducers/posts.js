@@ -17,8 +17,9 @@ const getReducerPosts = (state = initialState, action) => {
     case END_LOADING:
       return { ...state, isLoading: false }
     case FETCH_ALL:
+      console.log(action.payload)
       return {
-        ...state,
+        ...state, 
         posts: action.payload.data,
         currentPage: action.payload.currentPage,
         totalNumberofPages: action.payload.totalNumberofPages,

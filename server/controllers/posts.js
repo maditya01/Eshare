@@ -33,7 +33,9 @@ export const getPosts = async (req, res) => {
     const posts = await PostMessage.find().sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
     /*Send back response what all response we are sending back and why is that required.*/
     res.status(200).json({
-      data: posts, currentPage: Number(page), totalNumberofPages: Math.ceil(total / LIMIT),
+      data: posts,
+      currentPage: Number(page),
+      totalNumberofPages: Math.ceil(total / LIMIT),
     });
   } catch (error) {
     console.log(error);
@@ -52,7 +54,7 @@ Serves the request to get all the posts which is matched with search query. sera
 Search according to tags or tille. get values through req.query
 */
 export const getPostsBySearch = async (req, res) => {
-  const {searchQuery, searchTags } = req.query;
+  const { searchQuery, searchTags } = req.query;
   try {
     const title = new RegExp(searchQuery, "i");
     /*Find all the post that matches either title or tags.*/

@@ -5,10 +5,13 @@ import { FETCH_POST, FETCH_BY_SEARCH, START_LOADING, END_LOADING, FETCH_ALL, UPD
 
 //Action creators that returns actions.
 export const getPosts = (page) => async (dispatch) => {
-    // console.log("action->posts->getPosts");
+   
     try {
         dispatch({ type: START_LOADING })
-        const { data } = await api.fetchPosts(page)
+        const apiData = await api.fetchPosts(page);
+        // console.log(apiData)
+        const { data } = apiData
+        // console.log(data);
         dispatch({ type: FETCH_ALL, payload: data })
         dispatch({ type: END_LOADING })
     } catch (error) {
